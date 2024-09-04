@@ -1,9 +1,41 @@
-﻿namespace ConversorMoedas.API.Models
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace ConversorMoedas.API.Models
 {
+    [Table("moedas")]
     public class Moeda
     {
-        public decimal ValorCompra { get; set; }
-        public decimal ValorVenda { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Column("mda_id")]
+        public long Id { get; set; }
+
+        [Required]
+        [StringLength(50, MinimumLength = 3)]
+        [Column("mda_nome")]
+        public string Nome { get; set; }
+
+        [Required]
+        [StringLength(50, MinimumLength = 3)]
+        [Column("mda_pais")]
+        public string Pais { get; set; }
+
+        [Required]
+        [Column("mda_preco_compra")]
+        public decimal PrecoCompra { get; set; }
+
+        [Required]
+        [Column("mda_preco_venda")]
+        public decimal PrecoVenda { get; set; }
+
+        [Required]
+        [StringLength (3, MinimumLength = 3)]
+        [Column("mda_cod")]
+        public string Cod { get; set; }
+
+        [Required]
+        [Column("mda_data")]
         public DateTime Data { get; set; }
     }
 }

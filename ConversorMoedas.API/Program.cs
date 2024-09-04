@@ -4,7 +4,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddHttpClient<BancoCentralService>(client =>
+builder.Services.AddHttpClient<IBancoCentralService, BancoCentralService>(client =>
 {
     client.BaseAddress = new Uri("https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/");
 });

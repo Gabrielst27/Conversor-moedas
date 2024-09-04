@@ -30,3 +30,4 @@ C:\Users\gabri\Projetos\Conversor-de-moedas\ConversorMoedas.API\obj\Debug\net8.0
 C:\Users\gabri\Projetos\Conversor-de-moedas\ConversorMoedas.API\obj\Debug\net8.0\ConversorMoedas.API.pdb
 C:\Users\gabri\Projetos\Conversor-de-moedas\ConversorMoedas.API\obj\Debug\net8.0\ConversorMoedas.API.genruntimeconfig.cache
 C:\Users\gabri\Projetos\Conversor-de-moedas\ConversorMoedas.API\obj\Debug\net8.0\ref\ConversorMoedas.API.dll
+C:\Users\gabri\Projetos\Conversor-de-moedas\ConversorMoedas.API\obj\Debug\net8.0\ConversorMoedas.API.sourcelink.json

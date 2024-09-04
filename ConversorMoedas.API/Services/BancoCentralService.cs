@@ -3,7 +3,7 @@ using System.Text.Json;
 
 namespace ConversorMoedas.API.Services
 {
-    public class BancoCentralService
+    public class BancoCentralService : IBancoCentralService
     {
         private readonly HttpClient _httpClient;
 
@@ -23,7 +23,7 @@ namespace ConversorMoedas.API.Services
                 var jsonResponse = await response.Content.ReadAsStringAsync();
                 Console.WriteLine("JSON Response: " + jsonResponse);
 
-                var cotacaoDolarDia = JsonSerializer.Deserialize<CotacaoDolarDia>(jsonResponse, new JsonSerializerOptions
+                var cotacaoDolarDia = JsonSerializer.Deserialize<ListaMoeda>(jsonResponse, new JsonSerializerOptions
                 {
                     PropertyNameCaseInsensitive = true
                 });
@@ -32,8 +32,11 @@ namespace ConversorMoedas.API.Services
 
                 return new Moeda
                 {
-                    ValorCompra = moedaResponse.CotacaoVenda,
-                    ValorVenda = moedaResponse.CotacaoCompra,
+                    Nome = "Dolar",
+                    Pais = "EUA",
+                    PrecoCompra = moedaResponse.CotacaoVenda,
+                    PrecoVenda = moedaResponse.CotacaoCompra,
+                    Cod = "USD",
                     Data = DateTime.Parse(moedaResponse.DataHoraCotacao),
                 };
             }
@@ -44,15 +47,7 @@ namespace ConversorMoedas.API.Services
         }
     }
 
-    public class MoedaResponse
-    {
-        public decimal CotacaoCompra { get; set; }
-        public decimal CotacaoVenda { get; set; }
-        public string DataHoraCotacao { get; set; }
-    }
+    
 
-    public class CotacaoDolarDia
-    {
-        public List<MoedaResponse> Value { get; set; }
-    }
+    
 }

@@ -8,11 +8,11 @@ namespace YourNamespace.Controllers;
 [Route("api/[controller]")]
 public class MoedaController : ControllerBase
 {
-    private readonly BancoCentralService _bancoCentralService;
+    private readonly IBancoCentralService _bcService;
 
-    public MoedaController(BancoCentralService bancoCentralService)
+    public MoedaController(IBancoCentralService bancoCentralService)
     {
-        _bancoCentralService = bancoCentralService;
+        _bcService = bancoCentralService;
     }
 
     [HttpGet("moeda")]
@@ -22,7 +22,7 @@ public class MoedaController : ControllerBase
         {
             if (codigo.ToUpper() == "USD")
             {
-                var cotacao = await _bancoCentralService.ObterCotacaoUSDAsync();
+                var cotacao = await _bcService.ObterCotacaoUSDAsync();
                 return Ok(cotacao);
             }
 
