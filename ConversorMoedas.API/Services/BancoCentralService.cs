@@ -14,7 +14,7 @@ namespace ConversorMoedas.API.Services
 
         public async Task<Moeda> ObterCotacaoUSDAsync()
         {
-            var endpoint = $"https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/CotacaoDolarDia(dataCotacao=@dataCotacao)?@dataCotacao='09-03-2024'&$top=1&$format=json";
+            var endpoint = $"https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/CotacaoDolarDia(dataCotacao=@dataCotacao)?@dataCotacao='09-04-2024'&$top=1&$format=json";
 
             var response = await _httpClient.GetAsync(endpoint);
 
