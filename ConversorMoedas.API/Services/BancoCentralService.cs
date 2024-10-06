@@ -14,36 +14,49 @@ namespace ConversorMoedas.API.Services
 
         public async Task<Moeda> ObterCotacaoUSDAsync()
         {
-            var endpoint = $"https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/CotacaoDolarDia(dataCotacao=@dataCotacao)?@dataCotacao='09-04-2024'&$top=1&$format=json";
+            int i;
 
-            var response = await _httpClient.GetAsync(endpoint);
-
-            if (response.IsSuccessStatusCode)
+            for (i = 0;i < 15; i++)
             {
-                var jsonResponse = await response.Content.ReadAsStringAsync();
-                Console.WriteLine("JSON Response: " + jsonResponse);
+                DateTime data = DateTime.Now.AddDays(-i);
+                string dataAtual = data.ToString("MM-dd-yyyy");
+                var endpoint = $"https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/CotacaoDolarDia(dataCotacao=@dataCotacao)?@dataCotacao='{dataAtual}'&$top=1&$format=json";
 
-                var cotacaoDolarDia = JsonSerializer.Deserialize<ListaMoeda>(jsonResponse, new JsonSerializerOptions
+                var response = await _httpClient.GetAsync(endpoint);
+
+                if (response.IsSuccessStatusCode)
                 {
-                    PropertyNameCaseInsensitive = true
-                });
+                    var jsonResponse = await response.Content.ReadAsStringAsync();
+                    Console.WriteLine("JSON Response: " + jsonResponse);
 
-                MoedaResponse moedaResponse = cotacaoDolarDia.Value[0];
+                    var cotacaoDolarDia = JsonSerializer.Deserialize<ListaMoeda>(jsonResponse, new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    });
 
-                return new Moeda
-                {
-                    Nome = "Dolar",
-                    Pais = "EUA",
-                    PrecoCompra = moedaResponse.CotacaoVenda,
-                    PrecoVenda = moedaResponse.CotacaoCompra,
-                    Cod = "USD",
-                    Data = DateTime.Parse(moedaResponse.DataHoraCotacao),
-                };
+                    if (cotacaoDolarDia.Value.Count != 0)
+                    {
+                        MoedaResponse moedaResponse = cotacaoDolarDia.Value[0];
+
+                        Moeda moeda = new Moeda
+                        {
+                            Nome = "Dolar",
+                            Pais = "EUA",
+                            PrecoCompra = moedaResponse.CotacaoVenda,
+                            PrecoVenda = moedaResponse.CotacaoCompra,
+                            Cod = "USD",
+                            Data = DateTime.Parse(moedaResponse.DataHoraCotacao),
+                        };
+
+                        if (moeda.PrecoVenda != 0)
+                        {
+                            return moeda;
+                        }
+                    }
+                }
             }
-            else
-            {
-                throw new Exception("Não foi possível obter a cotação.");
-            }
+
+            throw new Exception("Não foi possível obter a cotação.");
         }
     }
 

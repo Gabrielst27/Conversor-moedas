@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using ConversorMoedas.API.Models;
 using ConversorMoedas.API.Context;
+using ConversorMoedas.API.Repositories;
 
 namespace YourNamespace.Controllers;
 
@@ -10,15 +11,15 @@ namespace YourNamespace.Controllers;
 public class MoedaController : ControllerBase
 {
     private readonly IBancoCentralService _bcService;
-    private readonly PgSQLContext _context;
+    private readonly IMoedaRepository _repository;
 
-    public MoedaController(IBancoCentralService bancoCentralService, PgSQLContext context)
+    public MoedaController(IBancoCentralService bancoCentralService, IMoedaRepository moedaRepository)
     {
         _bcService = bancoCentralService;
-        _context = context;
+        _repository = moedaRepository;
     }
 
-    [HttpGet("moeda")]
+    [HttpGet("CotacaoAtual")]
     public async Task<IActionResult> GetCotacao(string codigo)
     {
         try
@@ -40,6 +41,6 @@ public class MoedaController : ControllerBase
     [HttpGet]
     public ActionResult<IEnumerable<Moeda>> Teste()
     {
-        return Ok(_context.Moedas.ToList());
+        return Ok(_repository.GetAll());
     }
 }
