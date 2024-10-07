@@ -17,11 +17,6 @@ namespace ConversorMoedas.API.Models
         public string Nome { get; set; }
 
         [Required]
-        [StringLength(50, MinimumLength = 3)]
-        [Column("mda_pais")]
-        public string Pais { get; set; }
-
-        [Required]
         [Column("mda_preco_compra")]
         public decimal PrecoCompra { get; set; }
 

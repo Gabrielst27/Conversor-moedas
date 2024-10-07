@@ -29,6 +29,31 @@ public class MoedaController : ControllerBase
                 var cotacao = await _bcService.ObterCotacaoUSDAsync();
                 return Ok(cotacao);
             }
+            if (codigo.ToUpper() == "EUR")
+            {
+                var cotacao = await _bcService.ObterCotacaoEURAsync();
+                return Ok(cotacao);
+            }
+            if (codigo.ToUpper() == "JPY")
+            {
+                var cotacao = await _bcService.ObterCotacaoJPYAsync();
+                return Ok(cotacao);
+            }
+            if (codigo.ToUpper() == "SEK")
+            {
+                var cotacao = await _bcService.ObterCotacaoSEKAsync();
+                return Ok(cotacao);
+            }
+            if (codigo.ToUpper() == "NOK")
+            {
+                var cotacao = await _bcService.ObterCotacaoNOKAsync();
+                return Ok(cotacao);
+            }
+            if (codigo.ToUpper() == "CAD")
+            {
+                var cotacao = await _bcService.ObterCotacaoCADAsync();
+                return Ok(cotacao);
+            }
 
             return BadRequest("Não há registros para o código de moeda especificado");
         }
