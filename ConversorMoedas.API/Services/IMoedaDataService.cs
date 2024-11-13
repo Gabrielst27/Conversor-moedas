@@ -2,7 +2,7 @@
 
 namespace ConversorMoedas.API.Services
 {
-    public interface IBancoCentralService
+    public interface IMoedaDataService
     {
         Task<Moeda> ObterCotacaoUSDAsync();
         Task<Moeda> ObterCotacaoEURAsync();

@@ -7,9 +7,8 @@ namespace ConversorMoedas.API.Models
     public class Moeda
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column("mda_id")]
-        public long Id { get; set; }
+        public string Id { get; set; }
 
         [Required]
         [StringLength(50, MinimumLength = 3)]

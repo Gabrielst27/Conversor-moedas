@@ -13,7 +13,7 @@ namespace ConversorMoedas.API.Repositories
             _context = context;
         }
 
-        public Moeda Get(int id)
+        public Moeda Get(string id)
         {
             return _context.Moedas.FirstOrDefault(m => m.Id == id);
         }

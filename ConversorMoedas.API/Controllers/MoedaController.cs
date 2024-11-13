@@ -10,12 +10,12 @@ namespace YourNamespace.Controllers;
 [Route("api/[controller]")]
 public class MoedaController : ControllerBase
 {
-    private readonly IBancoCentralService _bcService;
+    private readonly IMoedaDataService _mdService;
     private readonly IMoedaRepository _repository;
 
-    public MoedaController(IBancoCentralService bancoCentralService, IMoedaRepository moedaRepository)
+    public MoedaController(IMoedaDataService bancoCentralService, IMoedaRepository moedaRepository)
     {
-        _bcService = bancoCentralService;
+        _mdService = bancoCentralService;
         _repository = moedaRepository;
     }
 
@@ -26,32 +26,32 @@ public class MoedaController : ControllerBase
         {
             if (codigo.ToUpper() == "USD")
             {
-                var cotacao = await _bcService.ObterCotacaoUSDAsync();
+                var cotacao = await _mdService.ObterCotacaoUSDAsync();
                 return Ok(cotacao);
             }
             if (codigo.ToUpper() == "EUR")
             {
-                var cotacao = await _bcService.ObterCotacaoEURAsync();
+                var cotacao = await _mdService.ObterCotacaoEURAsync();
                 return Ok(cotacao);
             }
             if (codigo.ToUpper() == "JPY")
             {
-                var cotacao = await _bcService.ObterCotacaoJPYAsync();
+                var cotacao = await _mdService.ObterCotacaoJPYAsync();
                 return Ok(cotacao);
             }
             if (codigo.ToUpper() == "SEK")
             {
-                var cotacao = await _bcService.ObterCotacaoSEKAsync();
+                var cotacao = await _mdService.ObterCotacaoSEKAsync();
                 return Ok(cotacao);
             }
             if (codigo.ToUpper() == "NOK")
             {
-                var cotacao = await _bcService.ObterCotacaoNOKAsync();
+                var cotacao = await _mdService.ObterCotacaoNOKAsync();
                 return Ok(cotacao);
             }
             if (codigo.ToUpper() == "CAD")
             {
-                var cotacao = await _bcService.ObterCotacaoCADAsync();
+                var cotacao = await _mdService.ObterCotacaoCADAsync();
                 return Ok(cotacao);
             }
 

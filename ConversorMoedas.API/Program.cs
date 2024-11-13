@@ -7,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddHttpClient<IBancoCentralService, BancoCentralService>(client =>
+builder.Services.AddHttpClient<IMoedaDataService, MoedaDataService>(client =>
 {
     client.BaseAddress = new Uri("https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/");
 });
@@ -15,6 +15,17 @@ builder.Services.AddHttpClient<IBancoCentralService, BancoCentralService>(client
 string connection = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<PgSQLContext>(options =>
     options.UseNpgsql(connection));
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigin",
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:8100")
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+        });
+});
 
 builder.Services.AddScoped<IMoedaRepository, MoedaRepository>();
 
@@ -31,6 +42,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors("AllowSpecificOrigin");
 
 app.UseHttpsRedirection();
 

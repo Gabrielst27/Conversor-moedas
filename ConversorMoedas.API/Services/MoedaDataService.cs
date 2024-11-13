@@ -3,11 +3,11 @@ using System.Text.Json;
 
 namespace ConversorMoedas.API.Services
 {
-    public class BancoCentralService : IBancoCentralService
+    public class MoedaDataService : IMoedaDataService
     {
         private readonly HttpClient _httpClient;
 
-        public BancoCentralService(HttpClient httpClient)
+        public MoedaDataService(HttpClient httpClient)
         {
             _httpClient = httpClient;
         }
@@ -38,8 +38,11 @@ namespace ConversorMoedas.API.Services
                     {
                         MoedaResponse moedaResponse = cotacaoDolarDia.Value[0];
 
+                        int spaceIndex = data.ToString().IndexOf(' ');
+
                         Moeda moeda = new Moeda
                         {
+                            Id = spaceIndex <= 0 ? data.ToString("yyyy/MM/dd").Replace("/", "") : data.ToString("yyyy/MM/dd").Substring(0, spaceIndex).Replace("/",""),
                             Nome = "Dolar",
                             PrecoCompra = moedaResponse.CotacaoVenda,
                             PrecoVenda = moedaResponse.CotacaoCompra,
