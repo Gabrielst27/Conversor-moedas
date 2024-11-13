@@ -1,0 +1,7 @@
+{
+  "name": "ConversorMoedas.frontend",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}

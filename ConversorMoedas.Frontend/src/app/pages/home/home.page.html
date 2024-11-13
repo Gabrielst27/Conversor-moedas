@@ -1,0 +1,45 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title> Home </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Tab 1</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div class="top-section">
+    <ion-item>
+      <ion-label>Período:</ion-label>
+      <ion-select placeholder="Selecione">
+        <ion-select-option value="opcao1">Opcao 1</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </div>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <div class="left-coin-container">
+          <h3>Real vai aqui</h3>
+        </div>
+      </ion-col>
+
+      <ion-col>
+        <div class="right-coin-container">
+          <h3>Moeda Estrangeira aqui</h3>
+
+          <!-- Exibe os dados conforme necessário -->
+          <pre>{{ cotacao | json }}</pre>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <div class="chart-container">
+    <h3>grafico vai aqui</h3>
+  </div>
+</ion-content>
